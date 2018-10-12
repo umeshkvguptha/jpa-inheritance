@@ -1,0 +1,79 @@
+JPA Inheritance Strategies
+Inheritance is the core concept of object oriented languages and JAVA and it’s used in extensively in most of the Domain Models. However, in contrast Relational databases have no concept of inheritance, so they don’t support it directly, if we try to persist these models into database it will become an issue. That’s where Java Persistence API (JPA) comes for our rescue.
+
+JPA is a collection of classes and methods helps us to persist domain models into database. JPA currently supports below Inheritance strategies.
+1.	Single Table Inheritance: A single table per class hierarchy.
+2.	Joined, Multiple Table Inheritance: A strategy in which fields that are specific to a subclass are mapped to a separate table than the fields that are common to the parent class, and a join is performed to instantiate the subclass.
+3.	Table Per Class Inheritance: A table per concrete entity class.
+4.	Mapped Super Classes: A table per concrete entity class. However, Parent class won’t be an entity.
+
+Domain Model:
+Let’s take Bank accounts as an example. Since we can have many types of bank accounts with their own specialty, it will make sense to have Bank Account as a base class with common attributes in it and attributes specific to subclasses in subclass.
+
+For demonstration purposes let’s take Savings Account and Checking Account as an example.
+ 
+
+1.	Single Table Inheritance 
+With this strategy, which corresponds to the default InheritanceType.SINGLE_TABLE, all classes in the hierarchy are mapped to a single table in the database. We can specify strategy explicitly by using @Inheritance annotation. 
+Single Table Inheritance can be specified like below in super class.
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class BankAccount implements Serializable {
+	@Id
+	private String accountNumber;
+	private BigDecimal balance;
+	//Setter & Getters
+}
+@Entity	
+public class CheckingAccount extends BankAccount {
+	private double insufficientFundsFee;
+	//Setter & Getters
+}
+@Entity	
+public class SavingsAccount extends BankAccount {
+	private double annualInterestRate;
+	//Setter & Getters
+}
+Since the records for all classes in the hierarchy will be in the same table, their will be no way for us to differentiate records. Luckily JPA adds “DTYPE ” column of type DiscriminatorType.STRING into table by default, name of the class/entity will be inserted into “DTYPE ” column by default. 
+
+However, if we would like to provide custom column to differentiate, we can do that so by using @DiscriminatorColumn annotation. Discriminator Column can be one of below types
+•	DiscriminatorType.STRING
+•	DiscriminatorType.CHAR
+•	DiscriminatorType.INTEGER
+
+Single Table Inheritance with Discriminator Column be specified like below in super class 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "account_type")
+public class BankAccount implements Serializable {
+	@Id
+	private String accountNumber;
+	private BigDecimal balance;
+	//Setter & Getters
+}
+@Entity	
+@DiscriminatorValue("1")
+public class CheckingAccount extends BankAccount {
+	private double insufficientFundsFee;
+	//Setter & Getters
+}
+@Entity	
+@DiscriminatorValue("2")
+public class SavingsAccount extends BankAccount {
+	private double annualInterestRate;
+	//Setter & Getters
+}
+if @DiscriminatorValue is not specified on an entity in a class hierarchy that uses a discriminator column, the Persistence provider will provide a default, implementation-specific value. If the discriminatorType element of @DiscriminatorColumn is DiscriminatorType.STRING, the default value is the name of the entity.
+This strategy provides good support for polymorphic relationships between entities and queries that cover the entire entity class hierarchy. However, this strategy requires the columns that contain the state of subclasses to be nullable.
+2.	Joined, Multiple Table Inheritance 
+In this strategy, which corresponds to InheritanceType.JOINED, the root of the class hierarchy is represented by a single table, and each subclass has a separate table that contains only those fields specific to that subclass. That is, the subclass table does not contain columns for inherited fields or properties. The subclass table also has a column or columns that represent its primary key, which is a foreign key to the primary key of the superclass table.
+This strategy provides good support for polymorphic relationships but requires one or more join operations to be performed when instantiating entity subclasses. This may result in poor performance for extensive class hierarchies. Similarly, queries that cover the entire class hierarchy require join operations between the subclass tables, resulting in decreased performance.
+
+3.	Table Per Class Inheritance 
+In this strategy, which corresponds to InheritanceType.TABLE_PER_CLASS, each concrete class is mapped to a separate table in the database. All fields or properties in the class, including inherited fields or properties, are mapped to columns in the class’s table in the database.
+This strategy provides poor support for polymorphic relationships and usually requires either SQL UNION queries or separate SQL queries for each subclass for queries that cover the entire entity class hierarchy.
+Support for this strategy is optional and may not be supported by all Java Persistence API providers. The default Java Persistence API provider in the GlassFish Server does not support this strategy.
+
+4.	Mapped Super Classes:
+
+
