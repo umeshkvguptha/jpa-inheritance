@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Boot + JPA + In Memory Database(H2)</title>
+</head>
+<body>
+<h1>Introduction</h1>
+<h1>JPA</h1>
+	<h2>In Memory Database</h2>
+		<h3>H2</h3>
+<h1>Inheritance</h1>
+Inheritance is an important pillar of OOP(Object Oriented Programming). 
+It is the mechanism in java by which one class is allow to inherit the features(fields and methods) of another class.
+When defining domain models, we often use Inheritance. However when we try to persist into Relation Database it wont go smooth.
+Relational databases don’t support class hierarchies directly, so that's where JPA comes for our rescue and provide below inheritance strategies.
+ <h2>Single Table</h2>
+ 	The Single table inheritance is the default strategy.
+ 	The Single Table strategy creates one table for each class hierarchy. Since the records for all entities will be in the same table, JPA needs a way to differentiate between each of them. We can use @DiscriminatorColumn annotation in base class to store discriminator value and @DiscriminatorValue can be defined in each subclass.
+To customize the discriminator column, we can use the @DiscriminatorColumn annotation:
+	This approach makes polymorphic queries very efficient and provides the best performance.
+ 	<h3>Pros</h3>
+ 	Single table inheritance mapping is the fastest of all inheritance models, since it never requires a join to retrieve a persistent instance from the database. Similarly, persisting or updating a persistent instance requires only a single INSERT or UPDATE statement. Finally, relations to any class within a single table inheritance hierarchy are just as efficient as relations to a base class.
+ 	<h3>Cons</h3>
+ 	The larger the inheritance model gets, the "wider" the mapped table gets, in that for every field in the entire inheritance hierarchy, a column must exist in the mapped table. This may have undesirable consequence on the database size, since a wide or deep inheritance hierarchy will result in tables with many mostly-empty columns.
+ 	<h3>Summary</h3>
+ <h2>Joined</h2>
+ 	 <h3>Pros</h3>
+ 	<h3>Cons</h3>
+ 	<h3>Summary</h3>
+ <h2>Table Per Class</h2>
+  	 <h3>Pros</h3>
+ 	 <h3>Cons</h3>
+ 	 <h3>Summary</h3>
+<h1>Conclusion</h1>
+</body>
+</html>
