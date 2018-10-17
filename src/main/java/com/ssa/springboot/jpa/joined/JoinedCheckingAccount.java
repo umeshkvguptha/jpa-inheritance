@@ -1,18 +1,20 @@
 /**
  * 
  */
-package com.ssa.springboot.jpa.singletable;
+package com.ssa.springboot.jpa.joined;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
  * @author Umesh Kumar K.V
  *
  */
-@Entity	
-@DiscriminatorValue("1")	
-public class CheckingAccount extends SingleTableBankAccount {
+@Entity
+@Table(name = "joined_checking_account")
+@PrimaryKeyJoinColumn(name = "checkingId")
+public class JoinedCheckingAccount extends JoinedBankAccount {
 
 	/**
 	 * 
@@ -37,7 +39,7 @@ public class CheckingAccount extends SingleTableBankAccount {
 
 	@Override
 	public String toString() {
-		return "CheckingAccount [insufficientFundsFee=" + insufficientFundsFee + ", getAccountNumber()="
+		return "JoinedCheckingAccount [insufficientFundsFee=" + insufficientFundsFee + ", getAccountNumber()="
 				+ getAccountNumber() + ", getBalance()=" + getBalance() + ", toString()=" + super.toString()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}

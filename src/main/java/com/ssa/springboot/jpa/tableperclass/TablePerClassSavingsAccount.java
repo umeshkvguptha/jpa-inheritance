@@ -1,18 +1,18 @@
 /**
  * 
  */
-package com.ssa.springboot.jpa.singletable;
+package com.ssa.springboot.jpa.tableperclass;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author Umesh Kumar K.V
  *
  */
-@Entity	
-@DiscriminatorValue("2")
-public class SavingsAccount extends SingleTableBankAccount {
+@Entity
+@Table(name="table_per_class_savings_account")	
+public class TablePerClassSavingsAccount extends TablePerClassBankAccount {
 
 	/**
 	 * 
@@ -37,9 +37,11 @@ public class SavingsAccount extends SingleTableBankAccount {
 
 	@Override
 	public String toString() {
-		return "SavingsAccount [annualInterestRate=" + annualInterestRate + ", getAccountNumber()=" + getAccountNumber()
-				+ ", getBalance()=" + getBalance() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + "]";
+		return "TablePerClassSavingsAccount [annualInterestRate=" + annualInterestRate + ", getAccountNumber()="
+				+ getAccountNumber() + ", getBalance()=" + getBalance() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
+
+
 
 }

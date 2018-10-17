@@ -19,10 +19,10 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="bank_account")
+@Table(name = "single_table_bank_account")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "account_type")
-public class BankAccount implements Serializable {
+public class SingleTableBankAccount implements Serializable {
 
 	/**
 	 * 
@@ -63,7 +63,8 @@ public class BankAccount implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BankAccount [accountNumber=" + accountNumber + ", balance=" + balance + "]";
+		return "SingleTableBankAccount [accountNumber=" + accountNumber + ", balance=" + balance + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }

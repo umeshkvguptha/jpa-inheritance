@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SingleTableServiceImpl implements SingleTableService {
-	private BankAccountRepository bankAccountRepository;
+	private SingleTableBankAccountRepository bankAccountRepository;
 	private SavingsAccountRepository savingsAccountRepository;
 	private CheckingAccountRepository checkingAccountRepository;
 
@@ -24,7 +24,7 @@ public class SingleTableServiceImpl implements SingleTableService {
 	 * @param checkingAccountRepository
 	 */
 	@Autowired
-	public SingleTableServiceImpl(BankAccountRepository bankAccountRepository,
+	public SingleTableServiceImpl(SingleTableBankAccountRepository bankAccountRepository,
 			SavingsAccountRepository savingsAccountRepository, CheckingAccountRepository checkingAccountRepository) {
 		super();
 		this.bankAccountRepository = bankAccountRepository;
@@ -36,7 +36,7 @@ public class SingleTableServiceImpl implements SingleTableService {
 	 * 
 	 */
 	@Override
-	public List<BankAccount> getAllBankAccounts() {
+	public List<SingleTableBankAccount> getAllBankAccounts() {
 		return bankAccountRepository.findAll();
 	}
 
@@ -44,7 +44,7 @@ public class SingleTableServiceImpl implements SingleTableService {
 	 * 
 	 */
 	@Override
-	public void putBankAccount(BankAccount checkingAccount) {
+	public void putBankAccount(SingleTableBankAccount checkingAccount) {
 		bankAccountRepository.save(checkingAccount);
 	}
 	

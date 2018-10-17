@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ssa.springboot.jpa.singletable;
+package com.ssa.springboot.jpa.joined;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
+public interface JoinedSavingsAccountRepository extends JpaRepository<JoinedSavingsAccount, String> {
 
 }

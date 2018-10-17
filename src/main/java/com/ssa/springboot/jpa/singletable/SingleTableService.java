@@ -13,12 +13,12 @@ public interface SingleTableService {
 	/**
 	 * @return
 	 */
-	List<BankAccount> getAllBankAccounts();
+	List<SingleTableBankAccount> getAllBankAccounts();
 
 	/**
 	 * @param checkingAccount
 	 */
-	void putBankAccount(BankAccount checkingAccount);
+	void putBankAccount(SingleTableBankAccount checkingAccount);
 
 	/**
 	 * @return

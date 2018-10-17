@@ -1,18 +1,18 @@
 /**
  * 
  */
-package com.ssa.springboot.jpa.singletable;
+package com.ssa.springboot.jpa.tableperclass;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author Umesh Kumar K.V
  *
  */
 @Entity	
-@DiscriminatorValue("1")	
-public class CheckingAccount extends SingleTableBankAccount {
+@Table(name="table_per_class_checking_account")	
+public class TablePerClassCheckingAccount extends TablePerClassBankAccount {
 
 	/**
 	 * 
@@ -37,9 +37,11 @@ public class CheckingAccount extends SingleTableBankAccount {
 
 	@Override
 	public String toString() {
-		return "CheckingAccount [insufficientFundsFee=" + insufficientFundsFee + ", getAccountNumber()="
+		return "TablePerClassCheckingAccount [insufficientFundsFee=" + insufficientFundsFee + ", getAccountNumber()="
 				+ getAccountNumber() + ", getBalance()=" + getBalance() + ", toString()=" + super.toString()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
+
+
 
 }

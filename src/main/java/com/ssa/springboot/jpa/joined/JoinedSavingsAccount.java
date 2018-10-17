@@ -1,18 +1,20 @@
 /**
  * 
  */
-package com.ssa.springboot.jpa.singletable;
+package com.ssa.springboot.jpa.joined;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
  * @author Umesh Kumar K.V
  *
  */
-@Entity	
-@DiscriminatorValue("2")
-public class SavingsAccount extends SingleTableBankAccount {
+@Entity
+@Table(name = "joined_savings_account")
+@PrimaryKeyJoinColumn(name = "savingsId")
+public class JoinedSavingsAccount extends JoinedBankAccount {
 
 	/**
 	 * 
@@ -37,9 +39,9 @@ public class SavingsAccount extends SingleTableBankAccount {
 
 	@Override
 	public String toString() {
-		return "SavingsAccount [annualInterestRate=" + annualInterestRate + ", getAccountNumber()=" + getAccountNumber()
-				+ ", getBalance()=" + getBalance() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + "]";
+		return "JoinedSavingsAccount [annualInterestRate=" + annualInterestRate + ", getAccountNumber()="
+				+ getAccountNumber() + ", getBalance()=" + getBalance() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 
 }

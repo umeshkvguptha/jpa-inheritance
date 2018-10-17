@@ -31,12 +31,12 @@ public class SingleTableController {
 	}
 
 	@GetMapping
-	public List<BankAccount> getAllBankAccounts() {
+	public List<SingleTableBankAccount> getAllBankAccounts() {
 		return singleTableService.getAllBankAccounts();
 	}
 
 	@PutMapping
-	public void putBankAccount(@RequestBody BankAccount savingsAccount) {
+	public void putBankAccount(@RequestBody SingleTableBankAccount savingsAccount) {
 		singleTableService.putBankAccount(savingsAccount);
 	}
 	
